@@ -22,6 +22,21 @@ def show
   render :show
 end
 
+def edit
+  @album = Album.find(params[:album_id])
+  @song = Song.find(params[:id])
+  render :edit
+end
+
+def update
+  @song = Song.find(params[:id])
+  if @song.update(song_params)
+    redirect_to album_path(@song.album)
+  else
+    render :edit
+  end
+end
+
 private
 def song_params
   params.require(:song).permit(:name, :lyrics)
